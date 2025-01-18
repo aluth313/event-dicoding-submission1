@@ -8,4 +8,5 @@
     <string name="event">Event</string>
     <string name="event_desc">Event Description</string>
     <string name="event_summary">Event Summary</string>
+    <string name="empty_data">Data Kosong</string>
 </resources>

@@ -47,6 +47,9 @@ class UpcomingFragment : Fragment() {
         val adapter = EventAdapter()
         adapter.submitList(upcomingEvents)
         binding.rvUpcomingEvent.adapter = adapter
+        if(upcomingEvents.isEmpty()){
+            binding.tvEmpty.visibility = View.VISIBLE
+        }
     }
 
     override fun onDestroyView() {

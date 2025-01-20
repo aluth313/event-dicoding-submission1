@@ -1,5 +1,6 @@
 package com.example.submissionpertama.ui.upcoming
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submissionpertama.data.response.EventItem
 import com.example.submissionpertama.databinding.ItemEventBinding
+import com.example.submissionpertama.ui.detailevent.DetailEventActivity
 
 class EventAdapter : ListAdapter<EventItem, EventAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -27,6 +29,11 @@ class EventAdapter : ListAdapter<EventItem, EventAdapter.MyViewHolder>(DIFF_CALL
             Glide.with(itemView.context)
                 .load(event.imageLogo)
                 .into(binding.ivImageEvent)
+            binding.cardEvent.setOnClickListener{ view ->
+                val moveToDetail = Intent(view.context, DetailEventActivity::class.java)
+                moveToDetail.putExtra("event_id", event.id)
+                view.context.startActivity(moveToDetail)
+            }
         }
     }
 

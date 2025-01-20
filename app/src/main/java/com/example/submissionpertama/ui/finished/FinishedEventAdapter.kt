@@ -1,18 +1,17 @@
 package com.example.submissionpertama.ui.finished
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.submissionpertama.data.response.EventsItem
+import com.example.submissionpertama.data.response.EventItem
 import com.example.submissionpertama.databinding.ItemFinishedEventBinding
 import com.example.submissionpertama.ui.detailevent.DetailEventActivity
 
-class FinishedEventAdapter : ListAdapter<EventsItem, FinishedEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class FinishedEventAdapter : ListAdapter<EventItem, FinishedEventAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemFinishedEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
@@ -24,28 +23,27 @@ class FinishedEventAdapter : ListAdapter<EventsItem, FinishedEventAdapter.MyView
     }
 
     class MyViewHolder(val binding: ItemFinishedEventBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(event: EventsItem){
+        fun bind(event: EventItem){
             binding.tvTitleFinishedEvent.text = event.name
             binding.tvSummaryFinishedEvent.text = event.summary
             Glide.with(itemView.context)
                 .load(event.imageLogo)
                 .into(binding.ivImageFinishedEvent)
             binding.cardFinishedEvent.setOnClickListener{ view ->
-                Log.e("RECYCLEVIEW CLICK", "ini habis di click ${event.name}")
-                view.context.startActivity(Intent(view.context, DetailEventActivity::class.java))
+                val moveToDetail = Intent(view.context, DetailEventActivity::class.java)
+                moveToDetail.putExtra("event_id", event.id)
+                view.context.startActivity(moveToDetail)
             }
         }
     }
 
-
-
     companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EventsItem>() {
-            override fun areItemsTheSame(oldItem: EventsItem, newItem: EventsItem): Boolean {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EventItem>() {
+            override fun areItemsTheSame(oldItem: EventItem, newItem: EventItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: EventsItem, newItem: EventsItem): Boolean {
+            override fun areContentsTheSame(oldItem: EventItem, newItem: EventItem): Boolean {
                 return oldItem == newItem
             }
 

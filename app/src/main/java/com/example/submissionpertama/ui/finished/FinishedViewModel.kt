@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.submissionpertama.data.response.EventResponse
-import com.example.submissionpertama.data.response.EventsItem
+import com.example.submissionpertama.data.response.EventItem
 import com.example.submissionpertama.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,8 +13,8 @@ import retrofit2.Response
 
 class FinishedViewModel : ViewModel() {
 
-    private val _listEvent = MutableLiveData<List<EventsItem>>()
-    val listEvent: LiveData<List<EventsItem>> = _listEvent
+    private val _listEvent = MutableLiveData<List<EventItem>>()
+    val listEvent: LiveData<List<EventItem>> = _listEvent
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading

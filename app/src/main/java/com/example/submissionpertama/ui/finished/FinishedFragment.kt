@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.submissionpertama.data.response.EventsItem
+import com.example.submissionpertama.data.response.EventItem
 import com.example.submissionpertama.databinding.FragmentFinishedBinding
 
 class FinishedFragment : Fragment() {
@@ -43,7 +43,7 @@ class FinishedFragment : Fragment() {
         binding.progressBarFinishedEvent.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun setEventData(finishedEvents: List<EventsItem>) {
+    private fun setEventData(finishedEvents: List<EventItem>) {
         val adapter = FinishedEventAdapter()
         adapter.submitList(finishedEvents)
         binding.rvFinishedEvent.adapter = adapter

@@ -1,6 +1,7 @@
 package com.example.submissionpertama.ui.detailevent
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,6 +19,9 @@ class DetailEventViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     companion object {
         private const val TAG = "DetailEventViewModel"
     }
@@ -34,13 +38,17 @@ class DetailEventViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _detailEvent.value = response.body()?.event
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    val msgError = "onFailure: ${response.message()}"
+                    _errorMessage.value = msgError
+                    Log.e(TAG, msgError)
                 }
             }
 
             override fun onFailure(call: Call<DetailEventResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                val msgError = "onFailure: ${t.message.toString()}"
+                _errorMessage.value = msgError
+                Log.e(TAG, msgError)
             }
         })
     }

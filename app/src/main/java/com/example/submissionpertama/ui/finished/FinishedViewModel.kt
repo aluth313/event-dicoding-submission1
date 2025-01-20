@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.submissionpertama.data.response.EventResponse
 import com.example.submissionpertama.data.response.EventItem
+import com.example.submissionpertama.data.response.EventResponse
 import com.example.submissionpertama.data.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,6 +18,9 @@ class FinishedViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
 
     companion object {
         private const val TAG = "FinishedViewModel"
@@ -36,13 +39,17 @@ class FinishedViewModel : ViewModel() {
                 if (response.isSuccessful){
                     _listEvent.value = response.body()?.listEvents
                 } else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    val msgError = "onFailure: ${response.message()}"
+                    _errorMessage.value = msgError
+                    Log.e(TAG, msgError)
                 }
             }
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
+                val msgError = "onFailure: ${t.message.toString()}"
+                _errorMessage.value = msgError
+                Log.e(TAG, msgError)
             }
 
         })

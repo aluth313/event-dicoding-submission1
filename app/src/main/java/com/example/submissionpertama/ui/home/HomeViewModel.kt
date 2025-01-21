@@ -47,7 +47,15 @@ class HomeViewModel : ViewModel() {
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 _isLoadingUpcoming.value = false
                 if (response.isSuccessful){
-                    _listUpcomingEvent.value = response.body()?.listEvents
+                    val listEvents = arrayListOf<EventItem>()
+                    for ((index, value) in response.body()?.listEvents!!.withIndex()){
+                        if (index < 5){
+                            listEvents += value
+                        } else {
+                            break
+                        }
+                    }
+                    _listUpcomingEvent.value = listEvents
                 } else {
                     val msgError = "onFailure: ${response.message()}"
                     _errorMessageUpcoming.value = msgError
@@ -72,7 +80,15 @@ class HomeViewModel : ViewModel() {
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 _isLoading.value = false
                 if (response.isSuccessful){
-                    _listEvent.value = response.body()?.listEvents
+                    val listEvents = arrayListOf<EventItem>()
+                    for ((index, value) in response.body()?.listEvents!!.withIndex()){
+                        if (index < 5){
+                            listEvents += value
+                        } else {
+                            break
+                        }
+                    }
+                    _listEvent.value = listEvents
                 } else {
                     val msgError = "onFailure: ${response.message()}"
                     _errorMessage.value = msgError

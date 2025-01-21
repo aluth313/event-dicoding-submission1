@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardEventHome"
+    android:layout_width="wrap_content"
+    android:layout_height="230dp"
+    android:layout_marginEnd="8dp"
+    app:cardBackgroundColor="@color/grey"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivImageEventHome"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:contentDescription="@string/event"
+            android:scaleType="fitXY"
+            android:src="@drawable/cover_square"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvTitleEventHome"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:breakStrategy="simple"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
+            android:text="@string/finished_event"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

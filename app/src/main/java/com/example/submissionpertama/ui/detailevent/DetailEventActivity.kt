@@ -35,7 +35,7 @@ class DetailEventActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("event_id", 0)
 
-        val detailEventViewModel = ViewModelProvider(this).get(DetailEventViewModel::class.java)
+        val detailEventViewModel = ViewModelProvider(this)[DetailEventViewModel::class.java]
         detailEventViewModel.fetchDetailEvent(id)
 
         supportActionBar?.hide()

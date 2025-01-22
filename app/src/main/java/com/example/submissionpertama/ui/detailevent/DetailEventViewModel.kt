@@ -1,7 +1,6 @@
 package com.example.submissionpertama.ui.detailevent
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

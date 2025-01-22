@@ -22,7 +22,7 @@ class EventAdapter : ListAdapter<EventItem, EventAdapter.MyViewHolder>(DIFF_CALL
         holder.bind(event)
     }
 
-    class MyViewHolder(val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: EventItem){
             binding.tvTitleEvent.text = event.name
             binding.tvSummaryEvent.text = event.summary

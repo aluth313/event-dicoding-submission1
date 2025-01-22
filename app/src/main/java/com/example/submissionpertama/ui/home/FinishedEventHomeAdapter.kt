@@ -22,7 +22,7 @@ class FinishedEventHomeAdapter : ListAdapter<EventItem, FinishedEventHomeAdapter
         holder.bind(event)
     }
 
-    class MyViewHolder(val binding: ItemFinishedEventBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemFinishedEventBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: EventItem){
             binding.tvTitleFinishedEvent.text = event.name
             binding.tvSummaryFinishedEvent.text = event.summary

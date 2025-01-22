@@ -22,7 +22,7 @@ class UpcomingEventHomeAdapter : ListAdapter<EventItem, UpcomingEventHomeAdapter
         holder.bind(event)
     }
 
-    class MyViewHolder(val binding: ItemUpcomingHomeBinding) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder(private val binding: ItemUpcomingHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: EventItem){
             binding.tvTitleEventHome.text = event.name
             Glide.with(itemView.context)

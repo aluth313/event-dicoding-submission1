@@ -20,7 +20,6 @@
             android:layout_height="150dp"
             android:contentDescription="@string/event"
             android:scaleType="fitXY"
-            android:src="@drawable/cover_square"
             android:visibility="visible" />
 
         <TextView

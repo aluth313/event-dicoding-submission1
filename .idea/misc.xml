@@ -1,4 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <pattern value="com.example.submissionpertama.data.response.DetailEventResponse" />
+    <pattern value="com.example.submissionpertama.data.response.DetailEventResponse" method="DetailEventResponse" />
+    <pattern value="com.example.submissionpertama.ExampleUnitTest" method="addition_isCorrect" />
+    <pattern value="com.example.submissionpertama.data.retrofit.ApiConfig" />
+    <pattern value="com.example.submissionpertama.ui.detailevent.DetailEventViewModel.Companion" />
+    <pattern value="com.example.submissionpertama.ui.finished.FinishedEventAdapter.Companion" />
+    <pattern value="com.example.submissionpertama.ui.finished.FinishedViewModel.Companion" />
+    <pattern value="com.example.submissionpertama.ui.home.FinishedEventHomeAdapter.Companion" />
+    <pattern value="com.example.submissionpertama.ui.home.HomeViewModel.Companion" />
+    <pattern value="com.example.submissionpertama.ui.home.UpcomingEventHomeAdapter.Companion" />
+    <pattern value="com.example.submissionpertama.ui.upcoming.EventAdapter.Companion" />
+    <pattern value="com.example.submissionpertama.ui.upcoming.UpcomingViewModel.Companion" />
+    <pattern value="com.example.submissionpertama.ui.detailevent.DetailEventActivity" />
+    <pattern value="com.example.submissionpertama.ui.detailevent.DetailEventViewModel" />
+    <pattern value="com.example.submissionpertama.ui.upcoming.EventAdapter" />
+    <pattern value="com.example.submissionpertama.data.response.EventItem" />
+    <pattern value="com.example.submissionpertama.data.response.EventItem" method="EventItem" />
+    <pattern value="com.example.submissionpertama.data.response.EventResponse" />
+    <pattern value="com.example.submissionpertama.data.response.EventResponse" method="EventResponse" />
+    <pattern value="com.example.submissionpertama.ExampleInstrumentedTest" />
+    <pattern value="com.example.submissionpertama.ExampleUnitTest" />
+    <pattern value="com.example.submissionpertama.ui.finished.FinishedEventAdapter" />
+    <pattern value="com.example.submissionpertama.ui.home.FinishedEventHomeAdapter" />
+    <pattern value="com.example.submissionpertama.ui.finished.FinishedFragment" />
+    <pattern value="com.example.submissionpertama.ui.finished.FinishedViewModel" />
+    <pattern value="com.example.submissionpertama.ui.home.HomeFragment" />
+    <pattern value="com.example.submissionpertama.ui.home.HomeViewModel" />
+    <pattern value="com.example.submissionpertama.MainActivity" />
+    <pattern value="com.example.submissionpertama.ui.home.UpcomingEventHomeAdapter" />
+    <pattern value="com.example.submissionpertama.ui.upcoming.UpcomingFragment" />
+    <pattern value="com.example.submissionpertama.ui.upcoming.UpcomingViewModel" />
+    <pattern value="com.example.submissionpertama.ExampleInstrumentedTest" method="useAppContext" />
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

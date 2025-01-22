@@ -30,9 +30,9 @@ class FinishedViewModel : ViewModel() {
         fetchFinishedEvents()
     }
 
-    private fun fetchFinishedEvents() {
+    fun fetchFinishedEvents(active: String = "0", q: String = "") {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getEvents(active = "0", q = "")
+        val client = ApiConfig.getApiService().getEvents(active = active, q = q)
         client.enqueue(object : Callback<EventResponse> {
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 _isLoading.value = false

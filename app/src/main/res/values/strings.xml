@@ -18,4 +18,5 @@
     <string name="event_summary">Event Summary</string>
     <string name="empty_data">Data Kosong</string>
     <string name="register">Register</string>
+    <string name="input_event_name">Masukkan nama event</string>
 </resources>

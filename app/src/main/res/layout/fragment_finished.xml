@@ -10,6 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:queryHint="@string/input_event_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+        </SearchView>
+
         <TextView
             android:id="@+id/text_dicoding_finished_event"
             android:layout_width="match_parent"
@@ -17,10 +30,11 @@
             android:layout_marginStart="8dp"
             android:textSize="23sp"
             android:visibility="visible"
+            android:layout_marginTop="16dp"
             android:text="@string/dicoding_finished_event"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchView"/>
 
         <TextView
             android:id="@+id/text_finished_event"

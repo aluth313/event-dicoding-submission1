@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +27,27 @@ class FinishedFragment : Fragment() {
 
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+
+        with(binding){
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(value: String?): Boolean {
+                    if (value != null){
+                        val active = if (value.isEmpty()) "0" else "-1"
+                        finishedViewModel.fetchFinishedEvents(active = active, q = value.toString())
+                    }
+                    return false
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    return false
+                }
+            })
+            searchView.setOnCloseListener {
+                finishedViewModel.fetchFinishedEvents()
+                false
+            }
+        }
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvFinishedEvent.layoutManager = layoutManager

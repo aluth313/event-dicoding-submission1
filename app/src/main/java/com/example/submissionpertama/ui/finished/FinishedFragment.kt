@@ -33,8 +33,7 @@ class FinishedFragment : Fragment() {
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(value: String?): Boolean {
                     if (value != null){
-                        val active = if (value.isEmpty()) "0" else "-1"
-                        finishedViewModel.fetchFinishedEvents(active = active, q = value.toString())
+                        finishedViewModel.fetchFinishedEvents(active = "0", q = value.toString())
                     }
                     return false
                 }

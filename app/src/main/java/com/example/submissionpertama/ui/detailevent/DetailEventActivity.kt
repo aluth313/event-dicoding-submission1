@@ -88,7 +88,8 @@ class DetailEventActivity : AppCompatActivity() {
         val beginTime = inputFormat.parse(detailEvent.beginTime)
         val formattedDate = outputFormat.format(beginTime as Date)
         binding.tvBeginTime.text = formattedDate
-        val quota = getString(R.string.remaining_quota, detailEvent.quota)
+        val quota =
+            getString(R.string.remaining_quota, (detailEvent.quota - detailEvent.registrants))
         binding.tvQuota.text = quota
         binding.tvDescriptionEvent.text = HtmlCompat.fromHtml(
             detailEvent.description,

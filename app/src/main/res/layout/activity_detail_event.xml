@@ -36,16 +36,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
+            android:id="@+id/ib_favorite"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="-20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_button"
+            android:contentDescription="@string/favourite"
             android:src="@drawable/baseline_favorite_border_24"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivBanner"
-            android:background="@null"
-
-
-            />
+            app:tint="@android:color/black" />
 
         <TextView
             android:id="@+id/tvTitleEventDetail"
@@ -61,7 +62,7 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivBanner" />
+            app:layout_constraintTop_toBottomOf="@+id/ib_favorite" />
 
         <TextView
             android:id="@+id/tvOwnerName"

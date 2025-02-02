@@ -3,6 +3,7 @@ package com.example.submissionpertama.ui.detailevent
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -100,6 +101,9 @@ class DetailEventActivity : AppCompatActivity() {
                 data = Uri.parse(detailEvent.link)
             }
             startActivity(intentOpenLink)
+        }
+        binding.ibFavorite.setOnClickListener {
+            Log.i("FAVORITE", "INI DITEKAN LOH")
         }
     }
 }

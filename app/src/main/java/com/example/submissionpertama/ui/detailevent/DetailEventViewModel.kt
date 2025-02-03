@@ -24,17 +24,21 @@ class DetailEventViewModel(application: Application) : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    private val mFavoriteEventRepository: FavoriteEventRepository = FavoriteEventRepository(application)
+    private val mFavoriteEventRepository: FavoriteEventRepository =
+        FavoriteEventRepository(application)
 
     companion object {
         private const val TAG = "DetailEventViewModel"
     }
 
-    fun insert(favoriteEvent: FavoriteEvent){
+    fun insert(favoriteEvent: FavoriteEvent) {
         mFavoriteEventRepository.insert(favoriteEvent)
     }
 
-    fun delete(favoriteEvent: FavoriteEvent){
+    fun getFavoriteEventById(id: Int): LiveData<FavoriteEvent> =
+        mFavoriteEventRepository.getFavoriteEventById(id)
+
+    fun delete(favoriteEvent: FavoriteEvent) {
         mFavoriteEventRepository.delete(favoriteEvent)
     }
 

@@ -3,7 +3,6 @@ package com.example.submissionpertama.ui.detailevent
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -26,6 +25,7 @@ class DetailEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailEventBinding
     private lateinit var detailEventViewModel: DetailEventViewModel
     private var favoriteEvent: FavoriteEvent? = null
+    private var isFavoriteEvent: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +48,16 @@ class DetailEventActivity : AppCompatActivity() {
 
         detailEventViewModel.detailEvent.observe(this) { detailEvent ->
             setDetailEventData(detailEvent)
+        }
+
+        detailEventViewModel.getFavoriteEventById(id).observe(this){ isFavorite ->
+            if (isFavorite != null) {
+                isFavoriteEvent = true
+                binding.ibFavorite.setImageResource(R.drawable.baseline_favorite_24)
+            } else {
+                isFavoriteEvent = false
+                binding.ibFavorite.setImageResource(R.drawable.baseline_favorite_border_24)
+            }
         }
 
         detailEventViewModel.isLoading.observe(this) {
@@ -119,9 +129,14 @@ class DetailEventActivity : AppCompatActivity() {
                 favoriteEvent?.mediaCover = detailEvent.mediaCover
             }
 
-            detailEventViewModel.insert(favoriteEvent as FavoriteEvent)
-            binding.ibFavorite.setImageResource(R.drawable.baseline_favorite_24)
-            Toast.makeText(this, "BERHASIL DI TAMBAHKAN KE FAVORIT", Toast.LENGTH_SHORT).show()
+            if (isFavoriteEvent){
+                detailEventViewModel.delete(favoriteEvent as FavoriteEvent)
+                Toast.makeText(this, "BERHASIL MENGHAPUS DARI FAVORIT", Toast.LENGTH_SHORT).show()
+            } else {
+                detailEventViewModel.insert(favoriteEvent as FavoriteEvent)
+                Toast.makeText(this, "BERHASIL DI TAMBAHKAN KE FAVORIT", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 }

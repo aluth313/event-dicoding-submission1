@@ -17,17 +17,21 @@ class FavoriteEventRepository(application: Application) {
         mFavoriteEventDao = db.favoriteEventDao()
     }
 
-    fun getAllFavoriteEvents(): LiveData<List<FavoriteEvent>> = mFavoriteEventDao.getAllFavoriteEvents()
+    fun getAllFavoriteEvents(): LiveData<List<FavoriteEvent>> =
+        mFavoriteEventDao.getAllFavoriteEvents()
 
-    fun insert(favoriteEvent: FavoriteEvent){
-        executorService.execute{mFavoriteEventDao.insert(favoriteEvent)}
+    fun getFavoriteEventById(id: Int): LiveData<FavoriteEvent> =
+        mFavoriteEventDao.getFavoriteEventById(id)
+
+    fun insert(favoriteEvent: FavoriteEvent) {
+        executorService.execute { mFavoriteEventDao.insert(favoriteEvent) }
     }
 
-    fun delete(favoriteEvent: FavoriteEvent){
+    fun delete(favoriteEvent: FavoriteEvent) {
         executorService.execute { mFavoriteEventDao.delete(favoriteEvent) }
     }
 
-    fun update(favoriteEvent: FavoriteEvent){
+    fun update(favoriteEvent: FavoriteEvent) {
         executorService.execute { mFavoriteEventDao.update(favoriteEvent) }
     }
 }

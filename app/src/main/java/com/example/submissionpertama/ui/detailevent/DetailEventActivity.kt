@@ -15,13 +15,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.submissionpertama.R
 import com.example.submissionpertama.data.response.EventItem
+import com.example.submissionpertama.database.FavoriteEvent
 import com.example.submissionpertama.databinding.ActivityDetailEventBinding
+import com.example.submissionpertama.helper.ViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class DetailEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailEventBinding
+    private lateinit var detailEventViewModel: DetailEventViewModel
+    private var favoriteEvent: FavoriteEvent? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +40,8 @@ class DetailEventActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("event_id", 0)
 
-        val detailEventViewModel = ViewModelProvider(this)[DetailEventViewModel::class.java]
+        detailEventViewModel = obtainViewModel(this@DetailEventActivity)
+        favoriteEvent = FavoriteEvent()
         detailEventViewModel.fetchDetailEvent(id)
 
         supportActionBar?.hide()
@@ -52,6 +57,11 @@ class DetailEventActivity : AppCompatActivity() {
         detailEventViewModel.errorMessage.observe(this) { errorMsg ->
             Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun obtainViewModel(activity: AppCompatActivity): DetailEventViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory).get(DetailEventViewModel::class.java)
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -103,7 +113,15 @@ class DetailEventActivity : AppCompatActivity() {
             startActivity(intentOpenLink)
         }
         binding.ibFavorite.setOnClickListener {
-            Log.i("FAVORITE", "INI DITEKAN LOH")
+            favoriteEvent.let { favoriteEvent ->
+                favoriteEvent?.id = detailEvent.id
+                favoriteEvent?.name = detailEvent.name
+                favoriteEvent?.mediaCover = detailEvent.mediaCover
+            }
+
+            detailEventViewModel.insert(favoriteEvent as FavoriteEvent)
+            binding.ibFavorite.setImageResource(R.drawable.baseline_favorite_24)
+            Toast.makeText(this, "BERHASIL DI TAMBAHKAN KE FAVORIT", Toast.LENGTH_SHORT).show()
         }
     }
 }

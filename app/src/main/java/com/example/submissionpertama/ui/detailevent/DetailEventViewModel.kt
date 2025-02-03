@@ -1,5 +1,6 @@
 package com.example.submissionpertama.ui.detailevent
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,11 +8,13 @@ import androidx.lifecycle.ViewModel
 import com.example.submissionpertama.data.response.DetailEventResponse
 import com.example.submissionpertama.data.response.EventItem
 import com.example.submissionpertama.data.retrofit.ApiConfig
+import com.example.submissionpertama.database.FavoriteEvent
+import com.example.submissionpertama.repository.FavoriteEventRepository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailEventViewModel : ViewModel() {
+class DetailEventViewModel(application: Application) : ViewModel() {
     private val _detailEvent = MutableLiveData<EventItem>()
     val detailEvent: LiveData<EventItem> = _detailEvent
 
@@ -21,8 +24,18 @@ class DetailEventViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val mFavoriteEventRepository: FavoriteEventRepository = FavoriteEventRepository(application)
+
     companion object {
         private const val TAG = "DetailEventViewModel"
+    }
+
+    fun insert(favoriteEvent: FavoriteEvent){
+        mFavoriteEventRepository.insert(favoriteEvent)
+    }
+
+    fun delete(favoriteEvent: FavoriteEvent){
+        mFavoriteEventRepository.delete(favoriteEvent)
     }
 
     fun fetchDetailEvent(id: Int) {

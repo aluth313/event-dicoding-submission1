@@ -55,4 +55,19 @@ class FavoriteFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onResume() {
+        super.onResume()
+        val favoriteViewModel = obtainViewModel(requireActivity() as AppCompatActivity)
+        favoriteViewModel.getAllFavoriteEvents().observe(viewLifecycleOwner) { favoriteEventList ->
+            if (favoriteEventList != null) {
+                if (favoriteEventList.isEmpty()) {
+                    binding.tvEmptyFavorite.visibility = View.VISIBLE
+                    binding.progressBarFavoriteEvent.visibility = View.GONE
+                } else {
+                    adapter.setListFavoriteEvents(favoriteEventList)
+                }
+            }
+        }
+    }
 }

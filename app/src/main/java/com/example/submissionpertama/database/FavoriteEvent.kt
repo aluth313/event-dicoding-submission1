@@ -16,6 +16,6 @@ data class FavoriteEvent (
     @ColumnInfo(name = "name")
     var name: String = "",
 
-    @ColumnInfo(name = "mediaCover")
-    var mediaCover: String? = null,
+    @ColumnInfo(name = "imageLogo")
+    var imageLogo: String? = null,
 ) : Parcelable

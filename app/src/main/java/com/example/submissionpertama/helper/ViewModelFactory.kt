@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.submissionpertama.ui.detailevent.DetailEventViewModel
+import com.example.submissionpertama.ui.favorite.FavoriteViewModel
 
 class ViewModelFactory private constructor(private val mApplication: Application) : ViewModelProvider.NewInstanceFactory() {
     companion object {
@@ -25,6 +26,8 @@ class ViewModelFactory private constructor(private val mApplication: Application
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailEventViewModel::class.java)){
             return DetailEventViewModel(mApplication) as T
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)){
+            return FavoriteViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

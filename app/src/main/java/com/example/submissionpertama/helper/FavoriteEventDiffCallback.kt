@@ -16,6 +16,6 @@ class FavoriteEventDiffCallback(private val oldFavoriteEventList: List<FavoriteE
         val oldFavoriteEvent = oldFavoriteEventList[oldItemPosition]
         val newFavoriteEvent = newFavoriteEventList[newItemPosition]
 
-        return oldFavoriteEvent.name == newFavoriteEvent.name && oldFavoriteEvent.mediaCover == newFavoriteEvent.mediaCover
+        return oldFavoriteEvent.name == newFavoriteEvent.name && oldFavoriteEvent.imageLogo == newFavoriteEvent.imageLogo
     }
 }

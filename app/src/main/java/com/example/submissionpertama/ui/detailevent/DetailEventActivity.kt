@@ -126,7 +126,7 @@ class DetailEventActivity : AppCompatActivity() {
             favoriteEvent.let { favoriteEvent ->
                 favoriteEvent?.id = detailEvent.id
                 favoriteEvent?.name = detailEvent.name
-                favoriteEvent?.mediaCover = detailEvent.mediaCover
+                favoriteEvent?.imageLogo = detailEvent.imageLogo
             }
 
             if (isFavoriteEvent){

@@ -27,4 +27,10 @@
         android:name="com.example.submissionpertama.ui.favorite.FavoriteFragment"
         android:label="@string/favourite"
         tools:layout="@layout/fragment_favorite" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.submissionpertama.ui.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>

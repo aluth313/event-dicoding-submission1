@@ -4,7 +4,6 @@
     android:id="@+id/cardEvent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/grey"
     app:cardCornerRadius="16dp"
     app:cardElevation="4dp"
     android:layout_marginBottom="8dp"

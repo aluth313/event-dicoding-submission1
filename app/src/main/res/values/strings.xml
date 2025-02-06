@@ -20,5 +20,8 @@
     <string name="register">Register</string>
     <string name="input_event_name">Masukkan nama event</string>
     <string name="favourite">Favorit</string>
+    <string name="settings">Pengaturan</string>
+    <string name="is_dark_mode">Dark Mode</string>
+    <string name="key_dark_mode">darkMode</string>
     <string name="favourite_event">Favorit Event</string>
 </resources>

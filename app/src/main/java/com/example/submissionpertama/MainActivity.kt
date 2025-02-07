@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val factory = ViewModelFactory.getInstance(application, pref)
-        val mainViewModel = ViewModelProvider(this, factory).get(
+        val factory = ViewModelFactory.getInstance(application, pref, this)
+        val mainViewModel = ViewModelProvider(this, factory!!).get(
             MainViewModel::class.java
         )
 

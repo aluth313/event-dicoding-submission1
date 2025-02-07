@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.submissionpertama.data.response.EventItem
+import com.example.submissionpertama.data.Result
+import com.example.submissionpertama.data.remote.response.EventItem
 import com.example.submissionpertama.databinding.FragmentUpcomingBinding
+import com.example.submissionpertama.helper.ViewModelFactory
 
 class UpcomingFragment : Fragment() {
 
@@ -21,35 +23,37 @@ class UpcomingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val upcomingViewModel =
-            ViewModelProvider(this)[UpcomingViewModel::class.java]
-
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val factory: ViewModelFactory? = ViewModelFactory.getInstance(context = requireActivity())
+        val upcomingViewModel: UpcomingViewModel by viewModels { factory!! }
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvUpcomingEvent.layoutManager = layoutManager
 
-        upcomingViewModel.listEvent.observe(viewLifecycleOwner) { upcomingEvents ->
-            setEventData(upcomingEvents)
-        }
-
-        upcomingViewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-
-        upcomingViewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->
-            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+        upcomingViewModel.fetchUpcomingEvents().observe(viewLifecycleOwner) { result ->
+            if (result != null){
+                when(result){
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        setEventData(result.data)
+                    }
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
         return root
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
     private fun setEventData(upcomingEvents: List<EventItem>) {
+        binding.progressBar.visibility = View.GONE
         val adapter = EventAdapter()
         adapter.submitList(upcomingEvents)
         binding.rvUpcomingEvent.adapter = adapter

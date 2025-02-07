@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.submissionpertama.data.response.EventItem
+import com.example.submissionpertama.data.Result
+import com.example.submissionpertama.data.remote.response.EventItem
 import com.example.submissionpertama.databinding.FragmentFinishedBinding
+import com.example.submissionpertama.helper.ViewModelFactory
 
 class FinishedFragment : Fragment() {
 
@@ -22,18 +24,18 @@ class FinishedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val finishedViewModel =
-            ViewModelProvider(this)[FinishedViewModel::class.java]
-
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val factory: ViewModelFactory? = ViewModelFactory.getInstance(context = requireActivity())
+        val viewModel: FinishedViewModel by viewModels { factory!! }
 
 
         with(binding){
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(value: String?): Boolean {
                     if (value != null){
-                        finishedViewModel.fetchFinishedEvents(active = "0", q = value.toString())
+                        viewModel.fetchFinishedEvents(q = value.toString())
                     }
                     return false
                 }
@@ -43,7 +45,7 @@ class FinishedFragment : Fragment() {
                 }
             })
             searchView.setOnCloseListener {
-                finishedViewModel.fetchFinishedEvents()
+                viewModel.fetchFinishedEvents()
                 false
             }
         }
@@ -51,26 +53,28 @@ class FinishedFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvFinishedEvent.layoutManager = layoutManager
 
-        finishedViewModel.listEvent.observe(viewLifecycleOwner) { finishedEvents ->
-            setEventData(finishedEvents)
-        }
-
-        finishedViewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-
-        finishedViewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->
-            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
+        viewModel.fetchFinishedEvents().observe(viewLifecycleOwner) { result ->
+            if (result != null){
+                when(result){
+                    is Result.Loading -> {
+                        binding.progressBarFinishedEvent.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        setEventData(result.data)
+                    }
+                    is Result.Error -> {
+                        binding.progressBarFinishedEvent.visibility = View.GONE
+                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
         return root
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarFinishedEvent.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
     private fun setEventData(finishedEvents: List<EventItem>) {
+        binding.progressBarFinishedEvent.visibility = View.GONE
         val adapter = FinishedEventAdapter()
         adapter.submitList(finishedEvents)
         binding.rvFinishedEvent.adapter = adapter

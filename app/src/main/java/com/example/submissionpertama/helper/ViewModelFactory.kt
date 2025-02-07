@@ -1,16 +1,22 @@
 package com.example.submissionpertama.helper
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.submissionpertama.MainViewModel
 import com.example.submissionpertama.SettingPreferences
+import com.example.submissionpertama.data.EventRepository
+import com.example.submissionpertama.di.Injection
 import com.example.submissionpertama.ui.detailevent.DetailEventViewModel
 import com.example.submissionpertama.ui.favorite.FavoriteViewModel
+import com.example.submissionpertama.ui.finished.FinishedViewModel
+import com.example.submissionpertama.ui.upcoming.UpcomingViewModel
 
 class ViewModelFactory private constructor(
     private val mApplication: Application,
-    private val pref: SettingPreferences? = null
+    private val pref: SettingPreferences? = null,
+    private val eventRepository: EventRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
@@ -18,11 +24,16 @@ class ViewModelFactory private constructor(
 
         @JvmStatic
         fun getInstance(
-            application: Application,
-            pref: SettingPreferences? = null
-        ): ViewModelFactory {
+            application: Application? = null,
+            pref: SettingPreferences? = null,
+            context: Context,
+        ): ViewModelFactory? {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: ViewModelFactory(application, pref).also { INSTANCE = it }
+                INSTANCE ?: application?.let {
+                    ViewModelFactory(
+                        it, pref,
+                        Injection.provideRepository(context)).also { INSTANCE = it }
+                }
             }
         }
     }
@@ -37,6 +48,18 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
                 return FavoriteViewModel(mApplication) as T
             }
+
+            modelClass.isAssignableFrom(FinishedViewModel::class.java) -> {
+                return FinishedViewModel(eventRepository) as T
+            }
+
+            modelClass.isAssignableFrom(UpcomingViewModel::class.java) -> {
+                return UpcomingViewModel(eventRepository) as T
+            }
+
+//            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+//                return HomeViewModel(eventRepository) as T
+//            }
 
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 if (pref == null) {

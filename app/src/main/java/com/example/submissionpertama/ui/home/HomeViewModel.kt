@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.submissionpertama.data.response.EventItem
-import com.example.submissionpertama.data.response.EventResponse
-import com.example.submissionpertama.data.retrofit.ApiConfig
+import com.example.submissionpertama.data.remote.response.EventItem
+import com.example.submissionpertama.data.remote.response.EventResponse
+import com.example.submissionpertama.data.remote.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

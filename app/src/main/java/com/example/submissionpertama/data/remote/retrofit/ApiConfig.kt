@@ -1,4 +1,4 @@
-package com.example.submissionpertama.data.retrofit
+package com.example.submissionpertama.data.remote.retrofit
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

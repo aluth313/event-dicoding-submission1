@@ -1,4 +1,4 @@
-package com.example.submissionpertama.data.response
+package com.example.submissionpertama.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 

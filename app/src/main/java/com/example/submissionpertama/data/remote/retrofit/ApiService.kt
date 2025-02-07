@@ -1,7 +1,7 @@
-package com.example.submissionpertama.data.retrofit
+package com.example.submissionpertama.data.remote.retrofit
 
-import com.example.submissionpertama.data.response.DetailEventResponse
-import com.example.submissionpertama.data.response.EventResponse
+import com.example.submissionpertama.data.remote.response.DetailEventResponse
+import com.example.submissionpertama.data.remote.response.EventResponse
 import retrofit2.Call
 import retrofit2.http.*
 

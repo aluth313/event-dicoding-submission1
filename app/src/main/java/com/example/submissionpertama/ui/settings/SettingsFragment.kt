@@ -24,8 +24,8 @@ class SettingsFragment : PreferenceFragmentCompat(),
         setSummaries()
 
         val pref = SettingPreferences.getInstance(requireContext().dataStore)
-        val factory = ViewModelFactory.getInstance(requireActivity().application, pref)
-        mainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        val factory = ViewModelFactory.getInstance(requireActivity().application, pref, requireActivity())
+        mainViewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
     }
 
     override fun onResume() {

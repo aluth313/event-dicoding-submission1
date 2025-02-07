@@ -1,7 +1,6 @@
 package com.example.submissionpertama.helper
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.submissionpertama.MainViewModel
@@ -26,13 +25,12 @@ class ViewModelFactory private constructor(
         fun getInstance(
             application: Application? = null,
             pref: SettingPreferences? = null,
-            context: Context,
         ): ViewModelFactory? {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: application?.let {
+                INSTANCE ?: application?.let { it ->
                     ViewModelFactory(
                         it, pref,
-                        Injection.provideRepository(context)).also { INSTANCE = it }
+                        Injection.provideRepository()).also { it1 -> INSTANCE = it1 }
                 }
             }
         }
@@ -56,10 +54,6 @@ class ViewModelFactory private constructor(
             modelClass.isAssignableFrom(UpcomingViewModel::class.java) -> {
                 return UpcomingViewModel(eventRepository) as T
             }
-
-//            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-//                return HomeViewModel(eventRepository) as T
-//            }
 
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 if (pref == null) {

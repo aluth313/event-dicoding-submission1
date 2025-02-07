@@ -70,8 +70,8 @@ class DetailEventActivity : AppCompatActivity() {
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): DetailEventViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application, context = this)
-        return ViewModelProvider(activity, factory!!).get(DetailEventViewModel::class.java)
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory!!)[DetailEventViewModel::class.java]
     }
 
     private fun showLoading(isLoading: Boolean) {

@@ -31,7 +31,4 @@ class FavoriteEventRepository(application: Application) {
         executorService.execute { mFavoriteEventDao.delete(favoriteEvent) }
     }
 
-    fun update(favoriteEvent: FavoriteEvent) {
-        executorService.execute { mFavoriteEventDao.update(favoriteEvent) }
-    }
 }

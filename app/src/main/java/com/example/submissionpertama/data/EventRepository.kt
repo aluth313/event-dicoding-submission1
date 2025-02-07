@@ -6,14 +6,11 @@ import androidx.lifecycle.MediatorLiveData
 import com.example.submissionpertama.data.remote.response.EventItem
 import com.example.submissionpertama.data.remote.response.EventResponse
 import com.example.submissionpertama.data.remote.retrofit.ApiConfig
-import com.example.submissionpertama.data.remote.retrofit.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventRepository private constructor(
-    private val apiService: ApiService,
-){
+class EventRepository private constructor() {
     private val result = MediatorLiveData<Result<List<EventItem>>>()
 
     companion object {
@@ -22,10 +19,9 @@ class EventRepository private constructor(
         @Volatile
         private var instance: EventRepository? = null
         fun getInstance(
-            apiService: ApiService
         ): EventRepository =
             instance ?: synchronized(this) {
-                instance ?: EventRepository(apiService)
+                instance ?: EventRepository()
             }.also { instance = it }
     }
 

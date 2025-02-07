@@ -47,7 +47,7 @@ class FavoriteFragment : Fragment() {
     }
 
     private fun obtainViewModel(activity: AppCompatActivity): FavoriteViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application, context = requireActivity())
+        val factory = ViewModelFactory.getInstance(activity.application)
         return ViewModelProvider(activity, factory!!)[FavoriteViewModel::class.java]
     }
 

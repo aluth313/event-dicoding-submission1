@@ -27,7 +27,7 @@ class FinishedFragment : Fragment() {
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val factory: ViewModelFactory? = ViewModelFactory.getInstance(context = requireActivity())
+        val factory: ViewModelFactory? = ViewModelFactory.getInstance()
         val viewModel: FinishedViewModel by viewModels { factory!! }
 
 

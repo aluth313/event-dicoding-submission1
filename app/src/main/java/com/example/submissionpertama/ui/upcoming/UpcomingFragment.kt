@@ -26,7 +26,7 @@ class UpcomingFragment : Fragment() {
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val factory: ViewModelFactory? = ViewModelFactory.getInstance(context = requireActivity())
+        val factory: ViewModelFactory? = ViewModelFactory.getInstance()
         val upcomingViewModel: UpcomingViewModel by viewModels { factory!! }
 
         val layoutManager = LinearLayoutManager(requireContext())

@@ -24,10 +24,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val factory = ViewModelFactory.getInstance(application, pref, this)
-        val mainViewModel = ViewModelProvider(this, factory!!).get(
-            MainViewModel::class.java
-        )
+        val factory = ViewModelFactory.getInstance(application, pref)
+        val mainViewModel = ViewModelProvider(this, factory!!)[MainViewModel::class.java]
 
         mainViewModel.getThemeSetting().observe(this){ isDarkModeActive: Boolean ->
             if (isDarkModeActive) {

@@ -14,7 +14,7 @@ import com.example.submissionpertama.helper.ViewModelFactory
 
 class SettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
-    private lateinit var DARKMODE: String
+    private lateinit var darkmode: String
     private lateinit var isDarkModePreference : SwitchPreference
     private lateinit var mainViewModel: MainViewModel
 
@@ -24,8 +24,8 @@ class SettingsFragment : PreferenceFragmentCompat(),
         setSummaries()
 
         val pref = SettingPreferences.getInstance(requireContext().dataStore)
-        val factory = ViewModelFactory.getInstance(requireActivity().application, pref, requireActivity())
-        mainViewModel = ViewModelProvider(this, factory!!).get(MainViewModel::class.java)
+        val factory = ViewModelFactory.getInstance(requireActivity().application, pref)
+        mainViewModel = ViewModelProvider(this, factory!!)[MainViewModel::class.java]
     }
 
     override fun onResume() {
@@ -40,17 +40,17 @@ class SettingsFragment : PreferenceFragmentCompat(),
 
     private fun setSummaries() {
         val sh = preferenceManager.sharedPreferences
-        isDarkModePreference.isChecked = sh?.getBoolean(DARKMODE, false) ?: false
+        isDarkModePreference.isChecked = sh?.getBoolean(darkmode, false) ?: false
     }
 
     private fun init(){
-        DARKMODE = resources.getString(R.string.key_dark_mode)
-        isDarkModePreference = findPreference<SwitchPreference>(DARKMODE) as SwitchPreference
+        darkmode = resources.getString(R.string.key_dark_mode)
+        isDarkModePreference = findPreference<SwitchPreference>(darkmode) as SwitchPreference
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == DARKMODE){
-            val isDarkModeActive = sharedPreferences?.getBoolean(DARKMODE, false) ?: false
+        if (key == darkmode){
+            val isDarkModeActive = sharedPreferences?.getBoolean(darkmode, false) ?: false
             isDarkModePreference.isChecked = isDarkModeActive
             mainViewModel.saveThemeSetting(isDarkModeActive)
             if (isDarkModePreference.isChecked) {

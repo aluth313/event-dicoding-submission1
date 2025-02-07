@@ -1,5 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/example/submissionpertama/SettingPreferences.kt dataStore$delegate" />
+      <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/example/submissionpertama/SettingPreferences.kt" />
+    </entry_points>
     <pattern value="com.example.submissionpertama.data.response.DetailEventResponse" />
     <pattern value="com.example.submissionpertama.data.response.DetailEventResponse" method="DetailEventResponse" />
     <pattern value="com.example.submissionpertama.ExampleUnitTest" method="addition_isCorrect" />
@@ -32,6 +37,16 @@
     <pattern value="com.example.submissionpertama.ui.upcoming.UpcomingFragment" />
     <pattern value="com.example.submissionpertama.ui.upcoming.UpcomingViewModel" />
     <pattern value="com.example.submissionpertama.ExampleInstrumentedTest" method="useAppContext" />
+    <pattern value="com.example.submissionpertama.data.remote.response.DetailEventResponse" />
+    <pattern value="com.example.submissionpertama.data.remote.response.DetailEventResponse" method="DetailEventResponse" />
+    <pattern value="com.example.submissionpertama.data.remote.response.EventItem" />
+    <pattern value="com.example.submissionpertama.data.remote.response.EventItem" method="EventItem" />
+    <pattern value="com.example.submissionpertama.data.remote.response.EventResponse" method="EventResponse" />
+    <pattern value="com.example.submissionpertama.database.FavoriteEventDao" method="delete" />
+    <pattern value="com.example.submissionpertama.database.FavoriteEventDao" />
+    <pattern value="com.example.submissionpertama.database.FavoriteEventDao" method="getAllFavoriteEvents" />
+    <pattern value="com.example.submissionpertama.database.FavoriteEventDao" method="getFavoriteEventById" />
+    <pattern value="com.example.submissionpertama.database.FavoriteEventDao" method="insert" />
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="jbr-21" project-jdk-type="JavaSDK">

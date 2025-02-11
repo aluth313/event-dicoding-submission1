@@ -16,4 +16,10 @@ class MainViewModel(private val pref: SettingPreferences) : ViewModel() {
             pref.saveThemeSetting(isDarkModeActive)
         }
     }
+
+    fun saveRemainderSetting(isRemainderActive: Boolean){
+        viewModelScope.launch {
+            pref.saveRemainderSetting(isRemainderActive)
+        }
+    }
 }

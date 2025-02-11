@@ -9,4 +9,10 @@
         android:title="@string/is_dark_mode"
         app:iconSpaceReserved="false" />
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/key_remainder"
+        android:title="@string/is_remainder"
+        app:iconSpaceReserved="false" />
+
 </PreferenceScreen>

@@ -22,6 +22,8 @@
     <string name="favourite">Favorit</string>
     <string name="settings">Pengaturan</string>
     <string name="is_dark_mode">Dark Mode</string>
+    <string name="is_remainder">Daily Remainder</string>
     <string name="key_dark_mode">darkMode</string>
+    <string name="key_remainder">remainder</string>
     <string name="favourite_event">Favorit Event</string>
 </resources>

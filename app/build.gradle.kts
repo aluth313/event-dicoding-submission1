@@ -66,5 +66,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.jetbrains.kotlinx.coroutines.android)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.android.async.http)
     ksp(libs.room.compiler)
 }

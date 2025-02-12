@@ -12,9 +12,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class EventRepository private constructor() {
-    private val result = MediatorLiveData<Result<List<EventItem>>>()
-    private val resultDetail = MediatorLiveData<Result<EventItem>>()
-
     companion object {
         private const val TAG = "EventRepository"
 
@@ -28,6 +25,7 @@ class EventRepository private constructor() {
     }
 
     fun fetchEvents(active: String = "0", q: String = ""): LiveData<Result<List<EventItem>>> {
+        val result = MediatorLiveData<Result<List<EventItem>>>()
         result.value = Result.Loading
         val client = ApiConfig.getApiService().getEvents(active = active, q = q)
         client.enqueue(object : Callback<EventResponse> {
@@ -51,6 +49,7 @@ class EventRepository private constructor() {
     }
 
     fun getDetailEvent(id: Int): LiveData<Result<EventItem>> {
+        val resultDetail = MediatorLiveData<Result<EventItem>>()
         resultDetail.value = Result.Loading
         val client = ApiConfig.getApiService().getDetailEvent(id)
         client.enqueue(object : Callback<DetailEventResponse> {

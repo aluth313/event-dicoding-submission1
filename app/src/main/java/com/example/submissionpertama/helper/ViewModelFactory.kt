@@ -11,6 +11,7 @@ import com.example.submissionpertama.repository.FavoriteEventRepository
 import com.example.submissionpertama.ui.detailevent.DetailEventViewModel
 import com.example.submissionpertama.ui.favorite.FavoriteViewModel
 import com.example.submissionpertama.ui.finished.FinishedViewModel
+import com.example.submissionpertama.ui.home.HomeViewModel
 import com.example.submissionpertama.ui.upcoming.UpcomingViewModel
 
 class ViewModelFactory private constructor(
@@ -53,6 +54,10 @@ class ViewModelFactory private constructor(
 
             modelClass.isAssignableFrom(FinishedViewModel::class.java) -> {
                 return FinishedViewModel(eventRepository) as T
+            }
+
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                return HomeViewModel(eventRepository) as T
             }
 
             modelClass.isAssignableFrom(UpcomingViewModel::class.java) -> {

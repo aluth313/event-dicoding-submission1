@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.submissionpertama.SettingPreferences
+import com.example.submissionpertama.data.Result
 import com.example.submissionpertama.data.remote.response.EventItem
+import com.example.submissionpertama.dataStore
 import com.example.submissionpertama.databinding.FragmentHomeBinding
+import com.example.submissionpertama.helper.ViewModelFactory
 
 class HomeFragment : Fragment() {
 
@@ -21,11 +25,12 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val pref = SettingPreferences.getInstance(requireContext().dataStore)
+        val factory: ViewModelFactory? = ViewModelFactory.getInstance(requireActivity().application, pref)
+        val homeViewModel: HomeViewModel by viewModels { factory!! }
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvFinishedEventHome.layoutManager = layoutManager
@@ -33,34 +38,45 @@ class HomeFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvUpcomingEventHome.layoutManager = layoutManagerUpcoming
 
-        homeViewModel.listEvent.observe(viewLifecycleOwner) { finishedEvents ->
-            setEventData(finishedEvents)
+        //fetch finished events
+        homeViewModel.getEvents("0").observe(viewLifecycleOwner) { result ->
+            if (result != null){
+                when(result){
+                    is Result.Loading -> {
+                        binding.progressBarFinishedEventHome.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding.progressBarFinishedEventHome.visibility = View.GONE
+                        setEventData(result.data)
+                    }
+                    is Result.Error -> {
+                        binding.progressBarFinishedEventHome.visibility = View.GONE
+                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
-        homeViewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
+        //fetch upcoming events
+        homeViewModel.getUpcomingEvents("1").observe(viewLifecycleOwner) { result ->
+            if (result != null){
+                when(result){
+                    is Result.Loading -> {
+                        binding.progressBarUpcomingEventHome.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding.progressBarUpcomingEventHome.visibility = View.GONE
+                        setUpcomingEventData(result.data)
+                    }
+                    is Result.Error -> {
+                        binding.progressBarUpcomingEventHome.visibility = View.GONE
+                        Toast.makeText(requireContext(), result.error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
 
-        homeViewModel.errorMessage.observe(viewLifecycleOwner) { errorMsg ->
-            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
-        }
-
-        homeViewModel.listUpcomingEvent.observe(viewLifecycleOwner) { upcomingEvents ->
-            setUpcomingEventData(upcomingEvents)
-        }
-
-        homeViewModel.isLoadingUpcoming.observe(viewLifecycleOwner) {
-            showLoadingUpcoming(it)
-        }
-
-        homeViewModel.errorMessageUpcoming.observe(viewLifecycleOwner) { errorMsg ->
-            Toast.makeText(requireContext(), errorMsg, Toast.LENGTH_SHORT).show()
-        }
         return root
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBarFinishedEventHome.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setEventData(finishedEvents: List<EventItem>) {
@@ -70,10 +86,6 @@ class HomeFragment : Fragment() {
         if (finishedEvents.isEmpty()) {
             binding.tvEmptyFinishedHome.visibility = View.VISIBLE
         }
-    }
-
-    private fun showLoadingUpcoming(isLoading: Boolean) {
-        binding.progressBarUpcomingEventHome.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setUpcomingEventData(upcomingEvents: List<EventItem>) {

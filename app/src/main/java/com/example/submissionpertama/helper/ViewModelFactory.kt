@@ -7,6 +7,7 @@ import com.example.submissionpertama.MainViewModel
 import com.example.submissionpertama.SettingPreferences
 import com.example.submissionpertama.data.EventRepository
 import com.example.submissionpertama.di.Injection
+import com.example.submissionpertama.repository.FavoriteEventRepository
 import com.example.submissionpertama.ui.detailevent.DetailEventViewModel
 import com.example.submissionpertama.ui.favorite.FavoriteViewModel
 import com.example.submissionpertama.ui.finished.FinishedViewModel
@@ -16,6 +17,7 @@ class ViewModelFactory private constructor(
     private val mApplication: Application,
     private val pref: SettingPreferences? = null,
     private val eventRepository: EventRepository,
+    private val favoriteEventRepository: FavoriteEventRepository,
 ) : ViewModelProvider.NewInstanceFactory() {
     companion object {
         @Volatile
@@ -30,7 +32,9 @@ class ViewModelFactory private constructor(
                 INSTANCE ?: application?.let { it ->
                     ViewModelFactory(
                         it, pref,
-                        Injection.provideRepository()).also { it1 -> INSTANCE = it1 }
+                        Injection.provideRepository(),
+                        Injection.provideFavoriteEventRepository(application)
+                    ).also { it1 -> INSTANCE = it1 }
                 }
             }
         }
@@ -40,7 +44,7 @@ class ViewModelFactory private constructor(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(DetailEventViewModel::class.java) -> {
-                return DetailEventViewModel(mApplication) as T
+                return DetailEventViewModel(eventRepository, favoriteEventRepository) as T
             }
 
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {

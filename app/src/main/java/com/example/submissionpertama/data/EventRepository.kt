@@ -3,6 +3,7 @@ package com.example.submissionpertama.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.example.submissionpertama.data.remote.response.DetailEventResponse
 import com.example.submissionpertama.data.remote.response.EventItem
 import com.example.submissionpertama.data.remote.response.EventResponse
 import com.example.submissionpertama.data.remote.retrofit.ApiConfig
@@ -12,6 +13,7 @@ import retrofit2.Response
 
 class EventRepository private constructor() {
     private val result = MediatorLiveData<Result<List<EventItem>>>()
+    private val resultDetail = MediatorLiveData<Result<EventItem>>()
 
     companion object {
         private const val TAG = "EventRepository"
@@ -46,5 +48,28 @@ class EventRepository private constructor() {
             }
         })
         return result
+    }
+
+    fun getDetailEvent(id: Int): LiveData<Result<EventItem>> {
+        resultDetail.value = Result.Loading
+        val client = ApiConfig.getApiService().getDetailEvent(id)
+        client.enqueue(object : Callback<DetailEventResponse> {
+            override fun onResponse(call: Call<DetailEventResponse>, response: Response<DetailEventResponse>) {
+                if (response.isSuccessful){
+                    resultDetail.value = response.body()?.let { Result.Success(it.event) }
+                } else {
+                    val msgError = "onFailure: ${response.message()}"
+                    resultDetail.value = Result.Error(msgError)
+                    Log.e(TAG, msgError)
+                }
+            }
+
+            override fun onFailure(call: Call<DetailEventResponse>, t: Throwable) {
+                val msgError = "onFailure: ${t.message.toString()}"
+                resultDetail.value = Result.Error(msgError)
+                Log.e(TAG, msgError)
+            }
+        })
+        return resultDetail
     }
 }

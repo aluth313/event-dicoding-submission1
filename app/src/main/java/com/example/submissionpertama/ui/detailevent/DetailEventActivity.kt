@@ -6,13 +6,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.submissionpertama.R
+import com.example.submissionpertama.data.Result
 import com.example.submissionpertama.data.remote.response.EventItem
 import com.example.submissionpertama.database.FavoriteEvent
 import com.example.submissionpertama.databinding.ActivityDetailEventBinding
@@ -23,9 +24,11 @@ import java.util.Locale
 
 class DetailEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailEventBinding
-    private lateinit var detailEventViewModel: DetailEventViewModel
     private var favoriteEvent: FavoriteEvent? = null
     private var isFavoriteEvent: Boolean = false
+    private val detailEventViewModel: DetailEventViewModel by viewModels {
+        ViewModelFactory.getInstance(application)!!
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,38 +43,37 @@ class DetailEventActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("event_id", 0)
 
-        detailEventViewModel = obtainViewModel(this@DetailEventActivity)
         favoriteEvent = FavoriteEvent()
-        detailEventViewModel.fetchDetailEvent(id)
 
         supportActionBar?.hide()
 
-        detailEventViewModel.detailEvent.observe(this) { detailEvent ->
-            setDetailEventData(detailEvent)
-        }
+        detailEventViewModel.fetchDetailEvent(id).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
 
-        detailEventViewModel.getFavoriteEventById(id).observe(this){ isFavorite ->
-            if (isFavorite != null) {
-                isFavoriteEvent = true
-                binding.ibFavorite.setImageResource(R.drawable.baseline_favorite_24)
-            } else {
-                isFavoriteEvent = false
-                binding.ibFavorite.setImageResource(R.drawable.baseline_favorite_border_24)
+                    is Result.Success -> {
+                        showLoading(false)
+                        setDetailEventData(result.data)
+                    }
+
+                    is Result.Error -> {
+                        binding.progressBarDetail.visibility = View.GONE
+                        Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            detailEventViewModel.getFavoriteEventById(id).observe(this) { isFavorite ->
+                isFavoriteEvent = isFavorite != null
+                binding.ibFavorite.setImageResource(
+                    if (isFavoriteEvent) R.drawable.baseline_favorite_24
+                    else R.drawable.baseline_favorite_border_24
+                )
             }
         }
-
-        detailEventViewModel.isLoading.observe(this) {
-            showLoading(it)
-        }
-
-        detailEventViewModel.errorMessage.observe(this) { errorMsg ->
-            Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun obtainViewModel(activity: AppCompatActivity): DetailEventViewModel {
-        val factory = ViewModelFactory.getInstance(activity.application)
-        return ViewModelProvider(activity, factory!!)[DetailEventViewModel::class.java]
     }
 
     private fun showLoading(isLoading: Boolean) {

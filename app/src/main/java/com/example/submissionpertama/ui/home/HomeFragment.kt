@@ -81,7 +81,7 @@ class HomeFragment : Fragment() {
 
     private fun setEventData(finishedEvents: List<EventItem>) {
         val adapter = FinishedEventHomeAdapter()
-        adapter.submitList(finishedEvents)
+        adapter.submitList(finishedEvents.take(5))
         binding.rvFinishedEventHome.adapter = adapter
         if (finishedEvents.isEmpty()) {
             binding.tvEmptyFinishedHome.visibility = View.VISIBLE
@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
 
     private fun setUpcomingEventData(upcomingEvents: List<EventItem>) {
         val adapter = UpcomingEventHomeAdapter()
-        adapter.submitList(upcomingEvents)
+        adapter.submitList(upcomingEvents.take(5))
         binding.rvUpcomingEventHome.adapter = adapter
         if (upcomingEvents.isEmpty()) {
             binding.tvEmptyUpcomingHome.visibility = View.VISIBLE

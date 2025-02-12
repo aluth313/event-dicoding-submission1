@@ -18,6 +18,8 @@ class FinishedFragment : Fragment() {
 
     private var _binding: FragmentFinishedBinding? = null
     private val binding get() = _binding!!
+    private val factory: ViewModelFactory? = ViewModelFactory.getInstance()
+    private val viewModel: FinishedViewModel by viewModels { factory!! }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,15 +29,14 @@ class FinishedFragment : Fragment() {
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val factory: ViewModelFactory? = ViewModelFactory.getInstance()
-        val viewModel: FinishedViewModel by viewModels { factory!! }
+
 
 
         with(binding){
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(value: String?): Boolean {
                     if (value != null){
-                        viewModel.fetchFinishedEvents(q = value.toString())
+                        fetchEvents(value)
                     }
                     return false
                 }
@@ -45,7 +46,7 @@ class FinishedFragment : Fragment() {
                 }
             })
             searchView.setOnCloseListener {
-                viewModel.fetchFinishedEvents()
+                fetchEvents()
                 false
             }
         }
@@ -53,7 +54,13 @@ class FinishedFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvFinishedEvent.layoutManager = layoutManager
 
-        viewModel.fetchFinishedEvents().observe(viewLifecycleOwner) { result ->
+        fetchEvents()
+
+        return root
+    }
+
+    private fun fetchEvents(q: String = ""){
+        viewModel.fetchFinishedEvents(q).observe(viewLifecycleOwner) { result ->
             if (result != null){
                 when(result){
                     is Result.Loading -> {
@@ -69,8 +76,6 @@ class FinishedFragment : Fragment() {
                 }
             }
         }
-
-        return root
     }
 
     private fun setEventData(finishedEvents: List<EventItem>) {

@@ -30,7 +30,7 @@ class ViewModelFactory private constructor(
             pref: SettingPreferences? = null,
         ): ViewModelFactory? {
             return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: application?.let { it ->
+                INSTANCE ?: application?.let {
                     ViewModelFactory(
                         it, pref,
                         Injection.provideRepository(),

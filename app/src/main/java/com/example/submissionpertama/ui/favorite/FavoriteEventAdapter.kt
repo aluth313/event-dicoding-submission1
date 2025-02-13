@@ -6,18 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.submissionpertama.database.FavoriteEvent
+import com.example.submissionpertama.data.local.entity.FavoriteEventEntity
 import com.example.submissionpertama.databinding.ItemFavoriteEventBinding
-import com.example.submissionpertama.helper.FavoriteEventDiffCallback
+import com.example.submissionpertama.utils.helper.FavoriteEventDiffCallback
 import com.example.submissionpertama.ui.detailevent.DetailEventActivity
 
 class FavoriteEventAdapter : RecyclerView.Adapter<FavoriteEventAdapter.FavoriteEventViewHolder>() {
-    private val listFavoriteEvents = ArrayList<FavoriteEvent>()
-    fun setListFavoriteEvents(listFavoriteEvents: List<FavoriteEvent>){
-        val diffCallback = FavoriteEventDiffCallback(this.listFavoriteEvents, listFavoriteEvents)
+    private val listFavoriteEventEntities = ArrayList<FavoriteEventEntity>()
+    fun setListFavoriteEvents(listFavoriteEventEntities: List<FavoriteEventEntity>){
+        val diffCallback = FavoriteEventDiffCallback(this.listFavoriteEventEntities, listFavoriteEventEntities)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-        this.listFavoriteEvents.clear()
-        this.listFavoriteEvents.addAll(listFavoriteEvents)
+        this.listFavoriteEventEntities.clear()
+        this.listFavoriteEventEntities.addAll(listFavoriteEventEntities)
         diffResult.dispatchUpdatesTo(this)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteEventViewHolder {
@@ -26,22 +26,22 @@ class FavoriteEventAdapter : RecyclerView.Adapter<FavoriteEventAdapter.FavoriteE
     }
 
     override fun onBindViewHolder(holder: FavoriteEventViewHolder, position: Int) {
-        holder.bind(listFavoriteEvents[position])
+        holder.bind(listFavoriteEventEntities[position])
     }
 
     override fun getItemCount(): Int {
-        return listFavoriteEvents.size
+        return listFavoriteEventEntities.size
     }
 
     inner class FavoriteEventViewHolder(private val binding: ItemFavoriteEventBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(favoriteEvent: FavoriteEvent){
-            binding.tvTitleFavoriteEvent.text = favoriteEvent.name
+        fun bind(favoriteEventEntity: FavoriteEventEntity){
+            binding.tvTitleFavoriteEvent.text = favoriteEventEntity.name
             Glide.with(itemView.context)
-                .load(favoriteEvent.imageLogo)
+                .load(favoriteEventEntity.imageLogo)
                 .into(binding.ivImageFavoriteEvent)
             binding.cardFavoriteEvent.setOnClickListener{ view ->
                 val moveToDetail = Intent(view.context, DetailEventActivity::class.java)
-                moveToDetail.putExtra("event_id", favoriteEvent.id)
+                moveToDetail.putExtra("event_id", favoriteEventEntity.id)
                 view.context.startActivity(moveToDetail)
             }
         }

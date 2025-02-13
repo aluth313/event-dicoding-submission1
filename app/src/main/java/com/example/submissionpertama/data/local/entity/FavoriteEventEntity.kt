@@ -1,4 +1,4 @@
-package com.example.submissionpertama.database
+package com.example.submissionpertama.data.local.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "favorite_events")
 @Parcelize
-data class FavoriteEvent (
+data class FavoriteEventEntity (
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
     var id: Int = 0,

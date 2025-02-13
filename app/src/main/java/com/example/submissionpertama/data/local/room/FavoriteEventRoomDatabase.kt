@@ -1,11 +1,12 @@
-package com.example.submissionpertama.database
+package com.example.submissionpertama.data.local.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.submissionpertama.data.local.entity.FavoriteEventEntity
 
-@Database(entities = [FavoriteEvent::class], version = 1)
+@Database(entities = [FavoriteEventEntity::class], version = 1)
 abstract class FavoriteEventRoomDatabase : RoomDatabase() {
     abstract fun favoriteEventDao(): FavoriteEventDao
 

@@ -15,16 +15,16 @@ import com.bumptech.glide.Glide
 import com.example.submissionpertama.R
 import com.example.submissionpertama.data.Result
 import com.example.submissionpertama.data.remote.response.EventItem
-import com.example.submissionpertama.database.FavoriteEvent
+import com.example.submissionpertama.data.local.entity.FavoriteEventEntity
 import com.example.submissionpertama.databinding.ActivityDetailEventBinding
-import com.example.submissionpertama.helper.ViewModelFactory
+import com.example.submissionpertama.ui.ViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class DetailEventActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailEventBinding
-    private var favoriteEvent: FavoriteEvent? = null
+    private var favoriteEventEntity: FavoriteEventEntity? = null
     private var isFavoriteEvent: Boolean = false
     private val detailEventViewModel: DetailEventViewModel by viewModels {
         ViewModelFactory.getInstance(application)!!
@@ -43,7 +43,7 @@ class DetailEventActivity : AppCompatActivity() {
 
         val id = intent.getIntExtra("event_id", 0)
 
-        favoriteEvent = FavoriteEvent()
+        favoriteEventEntity = FavoriteEventEntity()
 
         supportActionBar?.hide()
 
@@ -125,17 +125,17 @@ class DetailEventActivity : AppCompatActivity() {
             startActivity(intentOpenLink)
         }
         binding.ibFavorite.setOnClickListener {
-            favoriteEvent.let { favoriteEvent ->
+            favoriteEventEntity.let { favoriteEvent ->
                 favoriteEvent?.id = detailEvent.id
                 favoriteEvent?.name = detailEvent.name
                 favoriteEvent?.imageLogo = detailEvent.imageLogo
             }
 
             if (isFavoriteEvent){
-                detailEventViewModel.delete(favoriteEvent as FavoriteEvent)
+                detailEventViewModel.delete(favoriteEventEntity as FavoriteEventEntity)
                 Toast.makeText(this, "BERHASIL MENGHAPUS DARI FAVORIT", Toast.LENGTH_SHORT).show()
             } else {
-                detailEventViewModel.insert(favoriteEvent as FavoriteEvent)
+                detailEventViewModel.insert(favoriteEventEntity as FavoriteEventEntity)
                 Toast.makeText(this, "BERHASIL DI TAMBAHKAN KE FAVORIT", Toast.LENGTH_SHORT).show()
             }
 

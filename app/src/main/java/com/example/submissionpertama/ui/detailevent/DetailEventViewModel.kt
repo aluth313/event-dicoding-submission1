@@ -2,9 +2,11 @@ package com.example.submissionpertama.ui.detailevent
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.submissionpertama.data.EventRepository
-import com.example.submissionpertama.database.FavoriteEvent
-import com.example.submissionpertama.repository.FavoriteEventRepository
+import com.example.submissionpertama.data.local.entity.FavoriteEventEntity
+import com.example.submissionpertama.data.FavoriteEventRepository
+import kotlinx.coroutines.launch
 
 class DetailEventViewModel(
     private val eventRepository: EventRepository,
@@ -12,14 +14,18 @@ class DetailEventViewModel(
 ) : ViewModel() {
     fun fetchDetailEvent(id: Int) = eventRepository.getDetailEvent(id)
 
-    fun insert(favoriteEvent: FavoriteEvent) {
-        favoriteEventRepository.insert(favoriteEvent)
+    fun insert(favoriteEventEntity: FavoriteEventEntity) {
+        viewModelScope.launch {
+            favoriteEventRepository.insert(favoriteEventEntity)
+        }
     }
 
-    fun getFavoriteEventById(id: Int): LiveData<FavoriteEvent> =
+    fun getFavoriteEventById(id: Int): LiveData<FavoriteEventEntity> =
         favoriteEventRepository.getFavoriteEventById(id)
 
-    fun delete(favoriteEvent: FavoriteEvent) {
-        favoriteEventRepository.delete(favoriteEvent)
+    fun delete(favoriteEventEntity: FavoriteEventEntity) {
+        viewModelScope.launch {
+            favoriteEventRepository.delete(favoriteEventEntity)
+        }
     }
 }

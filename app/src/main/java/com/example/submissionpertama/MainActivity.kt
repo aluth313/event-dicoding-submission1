@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.submissionpertama.databinding.ActivityMainBinding
-import com.example.submissionpertama.helper.ViewModelFactory
+import com.example.submissionpertama.ui.ViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.submissionpertama.data.Result
 import com.example.submissionpertama.data.remote.response.EventItem
 import com.example.submissionpertama.databinding.FragmentFinishedBinding
-import com.example.submissionpertama.helper.ViewModelFactory
+import com.example.submissionpertama.ui.ViewModelFactory
 
 class FinishedFragment : Fragment() {
 

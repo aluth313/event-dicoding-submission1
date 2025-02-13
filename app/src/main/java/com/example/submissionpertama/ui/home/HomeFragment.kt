@@ -13,7 +13,7 @@ import com.example.submissionpertama.data.Result
 import com.example.submissionpertama.data.remote.response.EventItem
 import com.example.submissionpertama.dataStore
 import com.example.submissionpertama.databinding.FragmentHomeBinding
-import com.example.submissionpertama.helper.ViewModelFactory
+import com.example.submissionpertama.ui.ViewModelFactory
 
 class HomeFragment : Fragment() {
 

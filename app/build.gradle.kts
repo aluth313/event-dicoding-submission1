@@ -62,11 +62,10 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.preference)
     implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.jetbrains.kotlinx.coroutines.android)
     implementation(libs.androidx.work.runtime)
     implementation(libs.android.async.http)
+    implementation(libs.androidx.room.ktx)
     ksp(libs.room.compiler)
 }

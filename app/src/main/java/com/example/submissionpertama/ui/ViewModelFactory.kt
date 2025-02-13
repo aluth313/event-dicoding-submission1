@@ -1,4 +1,4 @@
-package com.example.submissionpertama.helper
+package com.example.submissionpertama.ui
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import com.example.submissionpertama.MainViewModel
 import com.example.submissionpertama.SettingPreferences
 import com.example.submissionpertama.data.EventRepository
 import com.example.submissionpertama.di.Injection
-import com.example.submissionpertama.repository.FavoriteEventRepository
+import com.example.submissionpertama.data.FavoriteEventRepository
 import com.example.submissionpertama.ui.detailevent.DetailEventViewModel
 import com.example.submissionpertama.ui.favorite.FavoriteViewModel
 import com.example.submissionpertama.ui.finished.FinishedViewModel

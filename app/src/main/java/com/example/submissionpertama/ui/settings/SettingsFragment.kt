@@ -16,7 +16,7 @@ import com.example.submissionpertama.MainViewModel
 import com.example.submissionpertama.R
 import com.example.submissionpertama.SettingPreferences
 import com.example.submissionpertama.dataStore
-import com.example.submissionpertama.helper.ViewModelFactory
+import com.example.submissionpertama.ui.ViewModelFactory
 import com.example.submissionpertama.utils.MyWorker
 import java.util.concurrent.TimeUnit
 

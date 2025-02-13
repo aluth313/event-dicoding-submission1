@@ -31,6 +31,7 @@ android-async-http = { module = "com.loopj.android:android-async-http", version.
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }

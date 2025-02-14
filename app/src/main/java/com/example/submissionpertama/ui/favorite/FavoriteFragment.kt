@@ -64,7 +64,9 @@ class FavoriteFragment : Fragment() {
                 if (favoriteEventList.isEmpty()) {
                     binding.tvEmptyFavorite.visibility = View.VISIBLE
                     binding.progressBarFavoriteEvent.visibility = View.GONE
+                    binding.rvFavoriteEvent.visibility = View.GONE
                 } else {
+                    binding.rvFavoriteEvent.visibility = View.VISIBLE
                     adapter.setListFavoriteEvents(favoriteEventList)
                 }
             }
